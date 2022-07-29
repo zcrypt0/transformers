@@ -1955,9 +1955,9 @@ class GenerationMixin:
             next_token_logits = outputs.logits[:, -1, :]
 
             # pre-process distribution
-            # next_token_scores = logits_processor(input_ids, next_token_logits)
-            # next_token_scores = logits_warper(input_ids, next_token_scores)
-            next_token_scores = next_token_logits  #dbg
+            next_token_scores = logits_processor(input_ids, next_token_logits)
+            next_token_scores = logits_warper(input_ids, next_token_scores)
+            # next_token_scores = next_token_logits  #dbg
 
             # Store scores, attentions and hidden_states when required
             if return_dict_in_generate:
