@@ -1955,8 +1955,9 @@ class GenerationMixin:
             next_token_logits = outputs.logits[:, -1, :]
 
             # pre-process distribution
-            next_token_scores = logits_processor(input_ids, next_token_logits)
-            next_token_scores = logits_warper(input_ids, next_token_scores)
+            # next_token_scores = logits_processor(input_ids, next_token_logits)
+            # next_token_scores = logits_warper(input_ids, next_token_scores)
+            next_token_scores = next_token_logits  #dbg
 
             # Store scores, attentions and hidden_states when required
             if return_dict_in_generate:
@@ -1977,8 +1978,9 @@ class GenerationMixin:
                     )
 
             # sample
-            probs = nn.functional.softmax(next_token_scores, dim=-1)
-            next_tokens = torch.multinomial(probs, num_samples=1).squeeze(1)
+            # probs = nn.functional.softmax(next_token_scores, dim=-1)
+            # next_tokens = torch.multinomial(probs, num_samples=1).squeeze(1)
+            next_tokens = torch.argmax(next_tokens_scores, dim=-1)  #dbg
 
             # finished sentences should have their next token be a padding token
             if eos_token_id is not None:
