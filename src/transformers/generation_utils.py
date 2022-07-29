@@ -1980,7 +1980,7 @@ class GenerationMixin:
             # sample
             # probs = nn.functional.softmax(next_token_scores, dim=-1)
             # next_tokens = torch.multinomial(probs, num_samples=1).squeeze(1)
-            next_tokens = torch.argmax(next_tokens_scores, dim=-1)  #dbg
+            next_tokens = torch.argmax(next_token_scores, dim=-1)  #dbg
 
             # finished sentences should have their next token be a padding token
             if eos_token_id is not None:
